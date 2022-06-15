@@ -21,6 +21,9 @@ using namespace aliengo;
 using namespace UNITREE_LEGGED_SDK;
 #endif
 
+unitree_legged_msgs::HighCmd SendHighROS;
+unitree_legged_msgs::HighState RecvHighROS;
+
 template<typename TLCM>
 void* update_loop(void* param)
 {
@@ -36,7 +39,8 @@ void control_callback(const geometry_msgs::Twist& cmd_vel)
 {
 	ROS_INFO("Linear Components:[%f,%f,%f]", cmd_vel.linear.x,  cmd_vel.linear.y,  cmd_vel.linear.z);
 	ROS_INFO("Angular Components:[%f,%f,%f]",cmd_vel.angular.x, cmd_vel.angular.y, cmd_vel.angular.z);
-	SendHighROS.forwardSpeed = cmd_vel.linear.x;
+	
+    SendHighROS.forwardSpeed = cmd_vel.linear.x;
 	SendHighROS.sideSpeed = cmd_vel.linear.y;
 	SendHighROS.rotateSpeed = cmd_vel.angular.z;
 
@@ -88,8 +92,7 @@ int mainHelper(int argc, char *argv[], TLCM &roslcm)
     long motiontime = 0;
     TCmd SendHighLCM = {0};
     TState RecvHighLCM = {0};
-    unitree_legged_msgs::HighCmd SendHighROS;
-    unitree_legged_msgs::HighState RecvHighROS;
+
 
     roslcm.SubscribeState();
 

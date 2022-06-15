@@ -36,21 +36,28 @@ void* update_loop(void* param)
 
 void posture_callback(const geometry_msgs::Twist& posture){
 
-    ROS_INFO("Linear Components:[%f,%f,%f]", posture.linear.x,  posture.linear.y,  posture.linear.z);
-    ROS_INFO("Angular Components:[%f,%f,%f]",posture.angular.x, posture.angular.y, posture.angular.z);
+    ROS_INFO("Posture Components:[%f,%f]", posture.linear.x, posture.linear.z);
 	
     //look_up/down (yaw)
-    SendHighROS.yaw = posture.linear.x;
+    SendHighROS.pitch = posture.linear.x;
+    if(SendHighROS.pitch > 1.5)
+        SendHighROS.pitch = 1.5
+    else if (SendHighROS.pitch < -1.5)
+        SendHighROS.pitch = -1.5
     //look_right/right (pitch)
-    SendHighROS.pitch = posture.angular.z;
+    SendHighROS.yaw = posture.angular.z;
+
+    if(SendHighROS.yaw > 0.6)
+        SendHighROS.yaw = 0.6
+    else if (SendHighROS.yaw < -0.6)
+        SendHighROS.yaw = -0.6
 
 
 }
 
 void control_callback(const geometry_msgs::Twist& cmd_vel)
 {
-	ROS_INFO("Linear Components:[%f,%f,%f]", cmd_vel.linear.x,  cmd_vel.linear.y,  cmd_vel.linear.z);
-	ROS_INFO("Angular Components:[%f,%f,%f]",cmd_vel.angular.x, cmd_vel.angular.y, cmd_vel.angular.z);
+	ROS_INFO("Velocity Components:[%f,%f,%f]", cmd_vel.linear.x,  cmd_vel.linear.y,  cmd_vel.linear.z);
 	
     SendHighROS.forwardSpeed = cmd_vel.linear.x;
 	SendHighROS.sideSpeed = cmd_vel.linear.y;

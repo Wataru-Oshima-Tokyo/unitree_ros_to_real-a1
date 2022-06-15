@@ -44,6 +44,15 @@ elseif( $ENV{UNITREE_SDK_VERSION} STREQUAL "3_2")
     add_dependencies(lcm_server_3_2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 endif()
 
+add_executable(control_lcm src/exe/control_mode.cpp)
+target_link_libraries(control_lcm ${EXTRA_LIBS} ${catkin_LIBRARIES})
+add_dependencies(control_lcm ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(odom_node src/exe/odom_node.cpp)
+target_link_libraries(odom_node ${EXTRA_LIBS} ${catkin_LIBRARIES})
+add_dependencies(odom_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
 add_executable(position_lcm src/exe/position_mode.cpp)
 target_link_libraries(position_lcm ${EXTRA_LIBS} ${catkin_LIBRARIES})
 add_dependencies(position_lcm ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

@@ -99,22 +99,24 @@ int mainHelper(int argc, char *argv[], TLCM &roslcm)
     pthread_t tid;
     pthread_create(&tid, NULL, update_loop<TLCM>, &roslcm);
 
+
+    SendHighROS.forwardSpeed = 0.0f;
+    SendHighROS.sideSpeed = 0.0f;
+    SendHighROS.rotateSpeed = 0.0f;
+    SendHighROS.bodyHeight = 0.0f;
+
+    SendHighROS.mode = 0;
+    SendHighROS.roll  = 0;
+    SendHighROS.pitch = 0;
+    SendHighROS.yaw = 0;
     while (ros::ok()){
         motiontime = motiontime+2;
 	// std::cout << motiontime << std::endl;
-	roslcm.Get(RecvHighLCM);
+	    roslcm.Get(RecvHighLCM);
         RecvHighROS = ToRos(RecvHighLCM);
         // printf("%f\n",  RecvHighROS.forwardSpeed);
 
-        SendHighROS.forwardSpeed = 0.0f;
-        SendHighROS.sideSpeed = 0.0f;
-        SendHighROS.rotateSpeed = 0.0f;
-        SendHighROS.bodyHeight = 0.0f;
 
-        SendHighROS.mode = 0;
-        SendHighROS.roll  = 0;
-        SendHighROS.pitch = 0;
-        SendHighROS.yaw = 0;
 
         if(SendHighROS.forwardSpeed != 0 
 		    || SendHighROS.sideSpeed != 0 

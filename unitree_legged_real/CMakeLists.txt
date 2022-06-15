@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     geometry_msgs
     unitree_legged_msgs
+    tf
 )
 
 catkin_package()

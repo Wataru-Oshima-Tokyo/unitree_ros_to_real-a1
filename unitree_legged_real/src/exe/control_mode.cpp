@@ -34,6 +34,18 @@ void* update_loop(void* param)
     }
 }
 
+void posture_callback(const geometry_msgs::Twist& posture){
+
+    ROS_INFO("Linear Components:[%f,%f,%f]", cmd_vel.linear.x,  cmd_vel.linear.y,  cmd_vel.linear.z);
+	ROS_INFO("Angular Components:[%f,%f,%f]",cmd_vel.angular.x, cmd_vel.angular.y, cmd_vel.angular.z);
+	
+    //look_up/down (yaw)
+    SendHighRoOS.yaw = cmd_vel.linear.x;
+    //look_right/right (pitch)
+    SendHighRoOS.pitch = cmd_vel.angular.z;
+
+
+}
 
 void control_callback(const geometry_msgs::Twist& cmd_vel)
 {
@@ -44,12 +56,12 @@ void control_callback(const geometry_msgs::Twist& cmd_vel)
 	SendHighROS.sideSpeed = cmd_vel.linear.y;
 	SendHighROS.rotateSpeed = cmd_vel.angular.z;
 
-	if(SendHighROS.rotateSpeed > 1.5){
-		SendHighROS.rotateSpeed = 1.5;
+	if(SendHighROS.rotateSpeed > 0.8){
+		SendHighROS.rotateSpeed = 0.8;
         	ROS_INFO("Angular Components changed:[%f]", SendHighROS.rotateSpeed);
 
-	} else if (SendHighROS.rotateSpeed <-1.5){
-		SendHighROS.rotateSpeed = -1.5;
+	} else if (SendHighROS.rotateSpeed <-0.8){
+		SendHighROS.rotateSpeed = -0.8;
         	ROS_INFO("Angular Components changed:[%f]", SendHighROS.rotateSpeed);
 
 	}
@@ -138,11 +150,12 @@ int mainHelper(int argc, char *argv[], TLCM &roslcm)
 }
 
 int main(int argc, char *argv[]){
-    ros::init(argc, argv, "walk_ros_mode");
+    ros::init(argc, argv, "control_ros_mode");
     std::string firmwork;
     ros::param::get("/firmwork", firmwork);
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("/cmd_vel", 1, control_callback);
+    ros::Subscriber sub = n.subscribe("/cmd_vel_move", 1, control_callback);
+    ros::Subscriber sub = n.subscribe("/cmd_vel_posture", 1, posture_callback);
     #ifdef SDK3_1
         aliengo::Control control(aliengo::HIGHLEVEL);
         aliengo::LCM roslcm;

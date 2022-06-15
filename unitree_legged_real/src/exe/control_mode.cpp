@@ -39,13 +39,13 @@ void posture_callback(const geometry_msgs::Twist& posture){
     ROS_INFO("Posture Components:[%f,%f]", posture.linear.x, posture.linear.z);
 	
     //look_up/down (yaw)
-    SendHighROS.pitch = posture.linear.x;
+    SendHighROS.pitch = -posture.linear.x;
     if(SendHighROS.pitch > 1.5)
         SendHighROS.pitch = 1.5;
     else if (SendHighROS.pitch < -1.5)
         SendHighROS.pitch = -1.5;
     //look_right/right (pitch)
-    SendHighROS.yaw = posture.angular.z;
+    SendHighROS.yaw = -posture.angular.z;
 
     if(SendHighROS.yaw > 0.6)
         SendHighROS.yaw = 0.6;

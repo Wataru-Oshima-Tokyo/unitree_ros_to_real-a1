@@ -12,7 +12,7 @@ Use of this source code is governed by the MPL-2.0 license, see LICENSE.
 #include <unitree_legged_msgs/HighState.h>
 #include "convert.h"
 #include <iostream>
-#define SDK3_2
+
 #ifdef SDK3_1
 using namespace aliengo;
 #endif
@@ -20,6 +20,8 @@ using namespace aliengo;
 using namespace UNITREE_LEGGED_SDK;
 #endif
 
+unitree_legged_msgs::HighCmd SendHighROS;
+unitree_legged_msgs::HighState RecvHighROS;
 template<typename TLCM>
 void* update_loop(void* param)
 {
@@ -45,8 +47,7 @@ int mainHelper(int argc, char *argv[], TLCM &roslcm)
     long motiontime = 0;
     TCmd SendHighLCM = {0};
     TState RecvHighLCM = {0};
-    unitree_legged_msgs::HighCmd SendHighROS;
-    unitree_legged_msgs::HighState RecvHighROS;
+
 
     roslcm.SubscribeState();
 

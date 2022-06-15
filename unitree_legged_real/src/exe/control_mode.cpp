@@ -12,6 +12,7 @@ Use of this source code is governed by the MPL-2.0 license, see LICENSE.
 #include <unitree_legged_msgs/HighState.h>
 #include "convert.h"
 #include <iostream>
+#include <geometry_msgs/Twist.h>
 
 #ifdef SDK3_1
 using namespace aliengo;

@@ -37,12 +37,12 @@ void* update_loop(void* param)
 void posture_callback(const geometry_msgs::Twist& posture){
 
     ROS_INFO("Linear Components:[%f,%f,%f]", posture.linear.x,  posture.linear.y,  posture.linear.z);
-	ROS_INFO("Angular Components:[%f,%f,%f]",posture.angular.x, posture.angular.y, posture.angular.z);
+    ROS_INFO("Angular Components:[%f,%f,%f]",posture.angular.x, posture.angular.y, posture.angular.z);
 	
     //look_up/down (yaw)
-    SendHighRoOS.yaw = posture.linear.x;
+    SendHighROS.yaw = posture.linear.x;
     //look_right/right (pitch)
-    SendHighRoOS.pitch = posture.angular.z;
+    SendHighROS.pitch = posture.angular.z;
 
 
 }

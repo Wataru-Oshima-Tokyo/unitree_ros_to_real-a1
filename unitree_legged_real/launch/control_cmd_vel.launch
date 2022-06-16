@@ -1,0 +1,16 @@
+<launch>
+	<arg name="rname" default="a1"/>
+	<arg name="ctrl_level" default="highlevel"/>
+	<arg name="firmwork" default="3_2"/>
+
+
+	<node pkg="unitree_legged_real" type="control_lcm" name="node_control_server"
+		respawn="false" output="screen" args="$(arg rname) $(arg ctrl_level)"/>
+
+	<param name="robot_name" value="$(arg rname)"/>
+	<param name="control_level" value="$(arg ctrl_level)"/>
+	<param name="firmwork" value="$(arg firmwork)"/>	
+	
+        <node pkg="unitree_legged_real" type="odom_node" name="odom_node_server"
+                respawn="false" output="screen"/>
+</launch>

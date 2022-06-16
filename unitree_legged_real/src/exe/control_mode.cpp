@@ -154,8 +154,8 @@ int main(int argc, char *argv[]){
     std::string firmwork;
     ros::param::get("/firmwork", firmwork);
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("/cmd_vel_move", 1, control_callback);
-    ros::Subscriber sub = n.subscribe("/cmd_vel_posture", 1, posture_callback);
+    ros::Subscriber move_sub = n.subscribe("/cmd_vel_move", 1, control_callback);
+    ros::Subscriber posture_sub = n.subscribe("/cmd_vel_posture", 1, posture_callback);
     #ifdef SDK3_1
         aliengo::Control control(aliengo::HIGHLEVEL);
         aliengo::LCM roslcm;

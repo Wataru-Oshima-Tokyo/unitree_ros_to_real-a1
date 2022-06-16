@@ -100,7 +100,7 @@ template<typename TCmd, typename TState, typename TLCM>
 int mainHelper(int argc, char *argv[], TLCM &roslcm)
 {
     std::cout << "WARNING: Control level is set to HIGH-level." << std::endl
-              << "Make sure the robot is standing on the ground." << std::endl
+              << "Make sure the robot is standing on the ground." << std::endl;
 
     ros::NodeHandle n;
     ros::Rate loop_rate(500);
